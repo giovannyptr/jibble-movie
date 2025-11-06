@@ -31,20 +31,22 @@ Testing	Vitest + Vue Testing Library
 Build Tool	Vite
 
 ## 📦 Installation
-## Clone repo
+ Clone repo
+ 
 ---
 git clone https://github.com/<your-username>/movie-app.git
 cd movie-app
 ---
 
-# Install deps
+Install deps
+
 ---
 npm install
 ---
 
 🧑‍💻 Development
+
 ---
-# Run dev server
 npm run dev
 ---
 
@@ -54,44 +56,9 @@ Visit → http://localhost:5173
 
 ## 🧪 Testing
 Unit Tests (Vitest)
+
 ---
 npm run test
 ---
 
-### 🧰 Project Structure
----
-src/
- ├── components/
- │   ├── MovieList.vue
- │   ├── MovieCard.vue
- │   ├── MovieSearch.vue
- │   └── Favorites.vue
- ├── stores/
- │   └── movies.ts
- ├── lib/
- │   └── api.ts
- ├── types.ts
- ├── App.vue
- └── main.ts
-tests/
- ├── unit/
- │   ├── components/
- │   │   ├── MovieList.spec.ts
- │   │   └── MovieSearch.spec.ts
- │   └── stores/movies.spec.ts
- └── e2e/search.spec.ts
- ---
 
-### 🧩 API
-
-OMDb API (public key required):
-https://www.omdbapi.com/?apikey=YOUR_KEY&s=guardians&page=1
-
-Example response:
-
-{
-  "Title": "Guardians of the Galaxy Vol. 2",
-  "Year": "2017",
-  "Poster": "https://m.media-amazon.com/images/....jpg",
-  "imdbID": "tt3896198"
-}
