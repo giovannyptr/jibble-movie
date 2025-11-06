@@ -1,0 +1,45 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - heading "🎬 Movie Finder by giovannyptr" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - textbox "Search movies by title…" [ref=e6]: batman
+    - button "Search" [ref=e7] [cursor=pointer]
+  - region "Results" [ref=e8]:
+    - heading "Results" [level=2] [ref=e9]
+    - generic [ref=e10]:
+      - article [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]:
+            - heading "Detail tt1" [level=3] [ref=e14]
+            - generic [ref=e15]: "2020"
+          - button "★" [ref=e16] [cursor=pointer]
+        - paragraph [ref=e17]:
+          - strong [ref=e18]: "IMDB:"
+          - text: tt1
+          - generic [ref=e19]:
+            - text: ·
+            - strong [ref=e20]: "Rating:"
+            - text: "7.5"
+      - article [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - heading "Detail tt3" [level=3] [ref=e24]
+            - generic [ref=e25]: "2020"
+          - button "★" [ref=e26] [cursor=pointer]
+        - paragraph [ref=e27]:
+          - strong [ref=e28]: "IMDB:"
+          - text: tt3
+          - generic [ref=e29]:
+            - text: ·
+            - strong [ref=e30]: "Rating:"
+            - text: "7.5"
+    - navigation "Pagination" [ref=e31]:
+      - button "Prev" [disabled] [ref=e32]
+      - generic [ref=e33]: Page 1 / 2
+      - button "Next" [ref=e34] [cursor=pointer]
+  - generic [ref=e35]:
+    - heading "⭐ Favorites" [level=2] [ref=e36]
+    - paragraph [ref=e37]: No favorites yet.
+```
