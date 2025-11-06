@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Movie } from '../types'
-import { omdbSearchWithDetails } from '../lib/api'
+import { searchMovies } from '../lib/api' // ⬅️ use the mock API helper
 
 const FAV_KEY = 'movieapp:favorites:v1'
 
@@ -9,17 +9,17 @@ export const useMovieStore = defineStore('movies', () => {
   // state
   const title = ref<string>('')            // current search query
   const page = ref<number>(1)              // current page
-  const items = ref<Movie[]>([])           // movies on current page (poster-only)
-  const totalPages = ref<number>(0)        // total pages from OMDb
+  const items = ref<Movie[]>([])           // movies on current page
+  const totalPages = ref<number>(0)        // total pages from mock API
   const loading = ref<boolean>(false)
   const error = ref<string | null>(null)
 
-  // favorites
+  // favorites (persisted)
   const favorites = ref<Record<string, Movie>>({})
   try {
     const raw = localStorage.getItem(FAV_KEY)
     if (raw) favorites.value = JSON.parse(raw)
-  } catch { /* ignore */ }
+  } catch { /* ignore bad JSON */ }
 
   // getters
   const favoriteList = computed<Movie[]>(() => Object.values(favorites.value))
@@ -40,7 +40,8 @@ export const useMovieStore = defineStore('movies', () => {
     loading.value = true
     error.value = null
     try {
-      const res = await omdbSearchWithDetails(title.value, page.value)
+      // ⬇️ call HackerRank mock API (your api.ts maps Poster to a placeholder)
+      const res = await searchMovies(title.value, page.value)
       items.value = res.items
       totalPages.value = res.totalPages
     } catch (e: any) {

@@ -2,43 +2,101 @@
 import type { Movie } from '../types'
 import { useMovieStore } from '../stores/movies'
 
-const { movie } = defineProps<{ movie: Movie }>()
+const props = defineProps<{ movie: Movie }>()
 const store = useMovieStore()
-
-const fallbackUrl = `https://placehold.co/600x360?text=${encodeURIComponent(movie.Title)}`
-function onImgError(e: Event) {
-  const img = e.target as HTMLImageElement | null
-  if (img) img.src = fallbackUrl
-}
 </script>
 
 <template>
   <article class="card">
-    <img
-      :src="movie.Poster || fallbackUrl"
-      alt=""
-      style="width:100%;height:260px;object-fit:cover;border-radius:10px;margin-bottom:10px"
-      loading="lazy"
-      @error="onImgError"
-    />
-    <header style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <h3 style="margin:0 0 4px">{{ movie.Title }}</h3>
-        <span class="badge">{{ movie.Year }}</span>
-      </div>
-      <button
-        class="button"
-        :aria-pressed="store.isFavorite(movie.imdbID)"
-        @click="store.toggleFavorite(movie)"
-        title="Toggle favorite"
-      >★</button>
+    <header class="header">
+      <h3 class="title">{{ props.movie.Title }}</h3>
+      <span class="year">{{ props.movie.Year }}</span>
     </header>
 
-    <p style="margin:8px 0 0;color:#9bb0d3">
-      <strong>IMDB:</strong> {{ movie.imdbID }}
-      <span v-if="movie.imdbRating"> · <strong>Rating:</strong> {{ movie.imdbRating }}</span>
-      <!-- <span v-if="movie.Runtime"> · <strong>Runtime:</strong> {{ movie.Runtime }}</span> -->
-    </p>
-    <!-- <p v-if="movie.Plot" style="margin:6px 0 0">{{ movie.Plot }}</p> -->
+    <p class="imdb-id">IMDB ID: {{ props.movie.imdbID }}</p>
+
+    <footer class="footer">
+      <button
+        class="fav-button"
+        :class="{ active: store.isFavorite(props.movie.imdbID) }"
+        @click="store.toggleFavorite(props.movie)"
+        :aria-pressed="store.isFavorite(props.movie.imdbID)"
+      >
+        ★
+      </button>
+    </footer>
   </article>
 </template>
+
+<style lang="scss" scoped>
+.card {
+  background: #161B22; /* dark tech card base */
+  color: #E6EDF3; /* soft white text */
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35); /* deep shadow for depth */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: #1E242E; /* hover slightly brighter */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25); /* blue glow hover */
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0;
+      color: #3B82F6; /* primary electric blue */
+      flex: 1;
+      padding-right: 0.5rem;
+    }
+
+    .year {
+      font-size: 0.9rem;
+      color: #7D8590; /* muted gray-blue */
+    }
+  }
+
+  .imdb-id {
+    font-size: 0.85rem;
+    color: #7D8590;
+    margin-top: 0.4rem;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.8rem;
+
+    .fav-button {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #475569; /* neutral gray */
+      transition: color 0.2s ease, transform 0.2s ease;
+
+      &.active {
+        color: #10B981; /* neon green accent */
+        text-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+      }
+
+      &:hover {
+        color: #60A5FA; /* glowing blue hover */
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+
+</style>

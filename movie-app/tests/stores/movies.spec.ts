@@ -1,29 +1,33 @@
 import { setActivePinia, createPinia } from 'pinia'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { useMovieStore } from '@/stores/movies'
+import { useMovieStore } from '../../src/stores/movies'
 
-// mock only the functions we call
-vi.mock('@/lib/api', () => ({
-  omdbSearchWithDetails: vi.fn()
+// mock the real API helper (no alias)
+vi.mock('../../src/lib/api', () => ({
+  searchMovies: vi.fn()
 }))
-import { omdbSearchWithDetails } from '@/lib/api'
+import { searchMovies } from '../../src/lib/api'
 
 const sampleItems = [
-  { Title: 'Guardians of the Galaxy Vol. 2', Year: '2017', imdbID: 'tt3896198', Poster: 'https://x/1.jpg', imdbRating: '7.6', Plot: 'Space fam.' },
-  { Title: 'Interstellar', Year: '2014', imdbID: 'tt0816692', Poster: 'https://x/2.jpg', imdbRating: '8.6', Plot: 'Time is a circle.' }
+  { Title: 'Inception', Year: '2010', imdbID: 'tt1375666' },
+  { Title: 'Interstellar', Year: '2014', imdbID: 'tt0816692' }
 ]
 
-describe('movies store (OMDb-only)', () => {
+describe('movies store (HackerRank API)', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // clean localStorage between tests
     localStorage.clear()
+    ;(searchMovies as unknown as vi.Mock).mockReset()
   })
 
   it('search populates items and pagination', async () => {
-    ;(omdbSearchWithDetails as any).mockResolvedValueOnce({ items: sampleItems, totalPages: 5 })
+    ;(searchMovies as unknown as vi.Mock).mockResolvedValueOnce({
+      items: sampleItems,
+      totalPages: 5
+    })
+
     const s = useMovieStore()
-    await s.search('guardians', 1)
+    await s.search('nolan', 1)
 
     expect(s.items.length).toBe(2)
     expect(s.totalPages).toBe(5)
@@ -32,7 +36,8 @@ describe('movies store (OMDb-only)', () => {
   })
 
   it('handles API failure gracefully', async () => {
-    ;(omdbSearchWithDetails as any).mockRejectedValueOnce(new Error('Network down'))
+    ;(searchMovies as unknown as vi.Mock).mockRejectedValueOnce(new Error('Network down'))
+
     const s = useMovieStore()
     await s.search('batman', 1)
 
@@ -43,15 +48,14 @@ describe('movies store (OMDb-only)', () => {
 
   it('toggleFavorite persists to localStorage', async () => {
     const s = useMovieStore()
-    const m = sampleItems[0]
+    const m = sampleItems[0] as any
+
     s.toggleFavorite(m)
     expect(s.isFavorite(m.imdbID)).toBe(true)
 
-    // persisted
     const raw = localStorage.getItem('movieapp:favorites:v1')
     expect(raw).toContain(m.imdbID)
 
-    // un-fav
     s.toggleFavorite(m)
     expect(s.isFavorite(m.imdbID)).toBe(false)
   })
