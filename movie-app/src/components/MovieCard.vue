@@ -37,8 +37,8 @@ function onImgError(e: Event) {
     <p style="margin:8px 0 0;color:#9bb0d3">
       <strong>IMDB:</strong> {{ movie.imdbID }}
       <span v-if="movie.imdbRating"> · <strong>Rating:</strong> {{ movie.imdbRating }}</span>
-      <span v-if="movie.Runtime"> · <strong>Runtime:</strong> {{ movie.Runtime }}</span>
+      <!-- <span v-if="movie.Runtime"> · <strong>Runtime:</strong> {{ movie.Runtime }}</span> -->
     </p>
-    <p v-if="movie.Plot" style="margin:6px 0 0">{{ movie.Plot }}</p>
+    <!-- <p v-if="movie.Plot" style="margin:6px 0 0">{{ movie.Plot }}</p> -->
   </article>
 </template>

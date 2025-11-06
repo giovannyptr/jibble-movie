@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MovieSearch from './components/MovieSearch.vue'
+import MovieSearch from './components/MovieSearch.vue';
 import MovieList from './components/MovieList.vue'
 import Favorites from './components/Favorites.vue'
 </script>
