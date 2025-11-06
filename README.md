@@ -54,7 +54,7 @@ npm run dev
 Visit → http://localhost:5173
 ```
 
-###deployed:
+### deployed:
 
 ```
 https://dainty-yeot-9002a7.netlify.app/
@@ -64,6 +64,7 @@ https://dainty-yeot-9002a7.netlify.app/
 Unit Tests (Vitest)
 
 ```
+cd movie-app
 npm run test
 ```
 
