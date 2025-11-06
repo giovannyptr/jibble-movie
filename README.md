@@ -17,9 +17,9 @@ Users can search, paginate through results, and star movies to keep them in a pe
 
 #### 💾 Data persistence with browser storage
 
-#### 🧪 Fully testable — unit tests (Vitest) + E2E tests (Playwright)
+#### 🧪 Fully testable — unit tests (Vitest) 
 
-#### ☁️ Ready for deployment on Netlify, Firebase Hosting, or Vercel
+#### ☁️Deplyode on Netlify
 
 ## 🛠️ Tech Stack
 Layer	Tech
@@ -52,6 +52,12 @@ npm run dev
 
 ```
 Visit → http://localhost:5173
+```
+
+###deployed:
+
+```
+https://dainty-yeot-9002a7.netlify.app/
 ```
 
 ## 🧪 Testing
