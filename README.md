@@ -33,32 +33,32 @@ Build Tool	Vite
 ## 📦 Installation
  Clone repo
  
----
+```
 git clone https://github.com/<your-username>/movie-app.git
 cd movie-app
----
+```
 
 Install deps
 
----
+```
 npm install
----
+```
 
 🧑‍💻 Development
 
----
+```
 npm run dev
----
+```
 
----
+```
 Visit → http://localhost:5173
----
+```
 
 ## 🧪 Testing
 Unit Tests (Vitest)
 
----
+```
 npm run test
----
+```
 
 
